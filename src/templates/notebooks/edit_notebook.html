@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+    <div>
+        <h1 class="display-5">Edit title</h1>
+    </div>
+    <div class="form-size">
+        <form method="post">
+            <div class="form-group">
+                <label for="title">New Title</label>
+                <input type="text" class="form-control" id="title" name="title" value="{{ notebook.title }}">
+            </div>
+
+            <button  type="submit" class="btn btn-default">Save</button>
+        </form>
+
+    </div>
+{% endblock %}

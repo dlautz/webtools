@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+    <div>
+        <h1 class="display-6">Tag search results for:  {{ tag_name }}</h1>
+
+        <hr>
+    </div>
+
+
+        <div class="list-group">
+            {% for note in notes %}
+                <a href="{{ url_for('notes.edit_note', note_id=note._id) }}" class="list-group-item">
+                    <h4 class="list-group-item-heading">{{ note.title }}</h4>
+                    <p><strong>From: {{ note.notebook_title }}</strong></p>
+                    {% for tag in note.tags %}
+                        <span class="badge badge-primary">{{ tag }}</span>
+                    {% endfor %}
+                </a>
+
+            {% endfor %}
+        </div>
+
+
+
+{% endblock %}

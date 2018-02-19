@@ -1,0 +1,5 @@
+Flask==0.12.2
+pymongo==3.6.0
+pytz==2017.3
+Flask-JWT-Simple==0.0.3
+

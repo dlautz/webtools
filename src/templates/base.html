@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static',  filename='css/style.css') }}">
+    <title>Web Tools</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="nav-main">
+    <a class="navbar-brand" href="#">WebTools</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a href="{{ url_for('users.user_notebooks') }}" class="nav-link">Notebooks</a></li>
+            <li class="nav-item"><a href="{{ url_for('tasks.get_tasks') }}" class="nav-link">Tasks</a></li>
+
+
+        </ul>
+        {% if session['username'] %}
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="{{ url_for('users.logout_user') }}" class="btn btn-light" type="button"><span><i
+                        class="fa fa-sign-out" aria-hidden="true"></i>
+</span>Logout</a>
+            </li>
+        </ul>
+        {% else %}
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <div class="btn-group" role="group">
+                <a href="{{ url_for('users.register_user') }}" class="btn btn-light" type="button"><span><i
+                        class="fa fa-user-plus" aria-hidden="true"></i>
+</span>Register</a>
+                    </div>
+                <div class="btn-group" role="group">
+                <a href="{{ url_for('users.login_user') }}" class="btn btn-light" type="button"><span><i
+                        class="fa fa-sign-in" aria-hidden="true"></i>
+</span>Login</a>
+                </div>
+            </li>
+
+
+        </ul>
+        {% endif %}
+
+    </div>
+</nav>
+
+<div class="container">
+    {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="alert alert-warning alert-dismissable" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+    {% block content %}
+
+
+    {% endblock %}
+
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+<script src="{{ url_for('static', filename='js/task.js') }}"></script>
+
+<script>
+    $('#summernote').summernote({
+        height: 300
+    });
+
+
+</script>
+</body>
+</html>

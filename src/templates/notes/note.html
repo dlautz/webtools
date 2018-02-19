@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+    <div>
+        <h1 class="display-5">{{ note.title }}</h1>
+        <hr>
+    </div>
+    <div>
+        <textarea class="form-control" id="summernote" name="content">{{ note.content }}</textarea>
+    </div>
+    <div>
+        <a href="{{ url_for('notes.get_notes', notebook_id=note.notebook_id) }}" class="btn btn-light" role="button">Back</a>
+        <a href="{{ url_for('notes.edit_note', note_id=note._id) }}" class="btn btn-warning" role="button">Edit</a>
+        <a href="{{ url_for('notes.delete_note', note_id=note._id) }}" class="btn btn-danger" role="button">Delete</a>
+        <a href="{{ url_for('notes.add_tag', note_id=note._id) }}" class="btn btn-success" role="button"><span><i class="fa fa-plus" aria-hidden="true"></i></span> Tag</a>
+    </div>
+
+
+
+
+
+{% endblock %}

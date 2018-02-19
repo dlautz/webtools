@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+    <div>
+        <div class="row">
+            <div class="col-10">
+                <h1 class="display-5">{{ notebook_title }} </h1>
+            </div>
+            <div class="col-2">
+                <a href="{{ url_for('notebooks.edit_notebook', notebook_id=notebook_id) }}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{{ url_for('notebooks.delete_notebook', notebook_id=notebook_id) }}" class="btn btn-danger btn-sm">Delete</a>
+            </div>
+        </div>
+            <a href="{{ url_for('notes.create_note', notebook_id=notebook_id) }}" class="btn btn-dark"><span><i class="fa fa-plus" aria-hidden="true"></i>
+</span> Note</a>
+
+        <hr>
+    </div>
+
+<div>
+        <div class="row">
+            <div class="list-group col-10">
+
+    {% if notes|length > 0 %}
+        <div class="list-group">
+            {% for note in notes %}
+            <div class="list-group-item">
+                <a href="{{ url_for('notes.edit_note', note_id=note._id) }}">
+                    <h4 class="list-group-item-heading">{{ note.title }} </h4>
+                    <p>(Last updated:  {{ note.last_updated|format_date }})</p>
+
+                </a>
+                <div>
+                    <a href="{{ url_for('notes.add_tag', note_id=note._id) }}" class="badge badge-success"><i class="fa fa-plus" aria-hidden="true"></i> tag</a>
+                    {% for tag in note.tags %}
+                        <a href="{{ url_for('notes.remove_tag', note_id=note._id, tag=tag) }}" class="badge badge-primary"><i class="fa fa-minus-square-o" aria-hidden="true"></i> {{ tag }}</a>
+                        <!--<span class="badge badge-primary"><i class="fa fa-minus-square-o" aria-hidden="true"></i> {{ tag }}</span>-->
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+
+            </div>
+    {% else %}
+        <h4>There aren't any notes yet!</h4>
+    {% endif %}
+</div>
+
+<div class="col-2">
+    <h6>Find by tag:</h6>
+            <div>
+                {% for tag in tags %}
+
+                    <a href="{{ url_for('notes.get_tag', tag=tag.name) }}" class="badge badge-primary">{{ tag.name }}  <span class="badge badge-light">{{ tag.counter }}</span></a>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

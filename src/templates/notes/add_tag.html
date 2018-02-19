@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+    <div>
+        <h1 class="display-5">Add Tag</h1>
+    </div>
+    <div class="form-size">
+        <form method="post">
+            <div class="form-group">
+                <label for="name">New Tag</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="New">
+            </div>
+            <div class="form-group">
+                <label for="userTags">User Tags</label>
+                <select class="form-control" id="userTags" name="userTags">
+                    <option value="">Choose...</option>
+                    {% for tag in tags %}
+                        <option value="{{ tag.name }}">{{ tag.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button  type="submit" class="btn btn-default">Add</button>
+        </form>
+
+    </div>
+{% endblock %}

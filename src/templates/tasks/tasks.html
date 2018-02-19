@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col">
+        <h1 class="display-5">Tasks: <small>{{ session['list'] }}</small></h1>
+        <a href="{{ url_for('tasks.create_task') }}" class="btn btn-dark"><span><i class="fa fa-plus" aria-hidden="true"></i></span> Task</a>
+
+
+    </div>
+    <div class="col-md-auto">
+        <a href="{{ url_for('users.manage_lists') }}" class="btn btn-outline-dark btn-sm" role="button">Manage Lists</a>
+    </div>
+</div>
+<hr>
+    <div id="taskList">
+        <form class="form-inline" method="post">
+
+            <div class="form-group">
+                <select class="form-control form-control-sm" name="listNames">
+                    <option value="">Choose list</option>
+                    {% for list in lists %}
+                        <option value="{{ list }}">{{ list }}</option>
+                    {% endfor %}
+                </select>
+                <button  type="submit" class="btn btn-dark btn-sm">Select</button>
+            </div>
+
+        </form>
+    </div>
+    <div>
+        <ul class="list-group">
+            {% for task in tasks %}
+                <li class="list-group-item">
+                    <a href="{{ url_for('tasks.edit_task', task_id=task._id) }}">
+                    <div class="row">
+                        <div class="col-9">
+                            <h6 class="my-0">{{ task.task }}</h6>
+                        </div>
+                        <div class="col-1">
+                            {{ task.category }}
+                        </div>
+                        <div class="col-2">
+                            {% if  (task.due|task_date) == "Past Due" %}
+                                <span style="color:red;">{{ task.due|task_date }}</span>
+                            {% else %}
+                                {{ task.due|task_date }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    </a>
+
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}

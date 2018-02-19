@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+    <div>
+        <h1 class="display-5">Notebooks</h1>
+        <a href="{{ url_for('notebooks.create_notebook') }}" class="btn btn-dark"><span><i class="fa fa-plus" aria-hidden="true"></i></span> Notebook</a>
+
+        <hr>
+    </div>
+    <div>
+        <div class="row">
+            <div class="list-group col-10">
+                {% for notebook in notebooks %}
+                    <a href="{{ url_for('notes.get_notes', notebook_id=notebook._id) }}" class="list-group-item">{{ notebook.title }}  <small>({{ notebook.num_notes }} notes)</small></a>
+                {% endfor %}
+            </div>
+
+            <div class="col-2">
+                <h6>Find by tag:</h6>
+                <div>
+                    {% for tag in tags %}
+
+                    <a href="{{ url_for('notes.get_tag', tag=tag.name) }}" class="badge badge-primary">{{ tag.name }}  <span class="badge badge-light">{{ tag.counter }}</span></a>
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+{% endblock %}

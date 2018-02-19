@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="jumbotron">
+        <h1 class="display-4">Web Tools</h1>
+        <p>Online tools for note taking and task management.</p>
+        <p>Currently contains tools for VCSC technicians.</p>
+        <p><a class="btn btn-primary btn-lg" href="{{ url_for('users.register_user') }}" role="button">Sign up</a></p>
+    </div>
+{% endblock %}

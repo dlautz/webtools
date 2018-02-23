@@ -2,6 +2,8 @@ from flask import Blueprint, request, jsonify
 from flask_jwt_simple import jwt_required, create_jwt, get_jwt_identity
 from src.models.users.user import User
 from src.models.tasks.task import Task
+from src.models.notebooks.notebook import Notebook
+from src.models.notes.note import Note
 from src.common.utils import Utils
 import datetime
 
@@ -65,3 +67,19 @@ def create_task():
     new_task.save_to_mongo()
 
     return jsonify({"msg": "task created"}), 201
+
+
+@api_blueprint.route('/create_note', methods=['POST'])
+@jwt_required
+def create_note():
+    data = request.get_json()
+    title = ""
+    content = data['url'] + '\n\n' + data['note']
+
+    notebook = Notebook.find_by_title('inbox')
+    notebook.increment_note()
+
+    new_note = Note(notebook._id, notebook.title, title, content, get_jwt_identity())
+    new_note.save_to_mongo()
+
+    return jsonify({"msg": "note created"}), 201

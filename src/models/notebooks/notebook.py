@@ -18,6 +18,10 @@ class Notebook(object):
     def find_by_id(cls, id):
         return cls(**Database.find_one(NotebookConstants.COLLECTION, {'_id': id}))
 
+    @classmethod
+    def find_by_title(cls, title):
+        return cls(**Database.find_one(NotebookConstants.COLLECTION, {'title': title}))
+
     def save_to_mongo(self):
         Database.insert(NotebookConstants.COLLECTION, self.json())
 

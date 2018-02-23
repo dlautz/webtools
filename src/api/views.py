@@ -74,7 +74,7 @@ def create_task():
 def create_note():
     data = request.get_json()
     title = ""
-    content = data['url'] + '\n\n' + data['note']
+    content = data['url'] + '<br>' + data['note']
 
     notebook = Notebook.find_by_title('inbox')
     notebook.increment_note()

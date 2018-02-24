@@ -55,6 +55,17 @@ def edit_note(note_id):
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['content']
+        notebook = request.form['notebookNames']
+
+        if notebook != note.notebook_title:
+            old_notebook = Notebook.find_by_title(note.notebook_title)
+            old_notebook.decrement_note()
+
+            new_notebook = Notebook.find_by_title(notebook)
+            new_notebook.increment_note()
+
+            note.notebook_title = new_notebook.title
+            note.notebook_id = new_notebook._id
 
         note.title = title
         note.content = content
@@ -64,7 +75,9 @@ def edit_note(note_id):
 
         return redirect(url_for('.get_notes', notebook_id=note.notebook_id))
 
-    return render_template('notes/edit_note.html', note=note)
+    notebooks = Notebook.find_by_username(session['username'])
+
+    return render_template('notes/edit_note.html', note=note, notebooks=notebooks)
 
 
 @note_blueprint.route('/add_tag/<string:note_id>', methods=['GET', 'POST'])

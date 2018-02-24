@@ -8,7 +8,7 @@
                 <h1 class="display-5">Edit Note</h1>
             </div>
             <div class="col-2">
-                <a href="{{ url_for('notes.delete_note', note_id=note._id) }}" class="btn btn-danger" role="button">Delete</a>
+                <a href="{{ url_for('notes.delete_note', note_id=note._id) }}" class="btn btn-outline-danger btn-sm" role="button">Delete</a>
             </div>
         </div>
     </div>
@@ -19,6 +19,21 @@
                 <input type="text" class="form-control" id="title" name="title" value="{{ note.title }}">
 
             </div>
+            <div class="row">
+                <div class="form-group col-4">
+                    <label for="notebookNames">Notebook</label>
+                    <select class="form-control form-control-sm" name="notebookNames" id="notebookNames" required>
+                        <option value="{{ note.notebook_title }}">{{ note.notebook_title }}</option>
+                        {% for notebook in notebooks %}
+                            <option value="{{ notebook.title }}">{{ notebook.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-8">
+                    <label for="url">URL</label>
+                    <input type="text" class="form-control" id="url" name="url" value="{{ note.url }}">
+                </div>
+            </div>
             <div class="form-group">
                 <label for="summernote">Content</label>
 
@@ -26,9 +41,9 @@
             </div>
 
 
-            <button  type="submit" class="btn btn-warning">Save</button>
+            <button  type="submit" class="btn btn-outline-dark">Save</button>
 
-            <a href="{{ url_for('notes.get_notes', notebook_id=note.notebook_id) }}" class="btn btn-light" role="button">Cancel</a>
+            <a href="{{ url_for('notes.get_notes', notebook_id=note.notebook_id) }}" class="btn btn-outline-dark" role="button">Cancel</a>
         </form>
 
     </div>

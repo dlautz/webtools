@@ -5,12 +5,13 @@ import datetime
 
 
 class Note(object):
-    def __init__(self, notebook_id, notebook_title, title, content, author, tags=[], last_updated=None, _id=None):
+    def __init__(self, notebook_id, notebook_title, title, content, author, url="", tags=[], last_updated=None, _id=None):
         self.notebook_id = notebook_id
         self.notebook_title = notebook_title
         self.title = title
         self.content = content
         self.author = author
+        self.url = url
         self.tags = tags
         self.last_updated = datetime.datetime.utcnow() if last_updated is None else last_updated
         self._id = uuid.uuid4().hex if _id is None else _id

@@ -6,8 +6,8 @@
                 <h1 class="display-5">{{ notebook_title }} </h1>
             </div>
             <div class="col-2">
-                <a href="{{ url_for('notebooks.edit_notebook', notebook_id=notebook_id) }}" class="btn btn-warning btn-sm">Edit</a>
-                <a href="{{ url_for('notebooks.delete_notebook', notebook_id=notebook_id) }}" class="btn btn-danger btn-sm">Delete</a>
+                <a href="{{ url_for('notebooks.edit_notebook', notebook_id=notebook_id) }}" class="btn btn-outline-dark btn-sm">Edit</a>
+                <a href="{{ url_for('notebooks.delete_notebook', notebook_id=notebook_id) }}" class="btn btn-outline-danger btn-sm">Delete</a>
             </div>
         </div>
             <a href="{{ url_for('notes.create_note', notebook_id=notebook_id) }}" class="btn btn-dark"><span><i class="fa fa-plus" aria-hidden="true"></i>
@@ -30,9 +30,9 @@
 
                 </a>
                 <div>
-                    <a href="{{ url_for('notes.add_tag', note_id=note._id) }}" class="badge badge-success"><i class="fa fa-plus" aria-hidden="true"></i> tag</a>
+                    <a href="{{ url_for('notes.add_tag', note_id=note._id) }}" class="badge badge-dark"><i class="fa fa-plus" aria-hidden="true"></i> tag</a>
                     {% for tag in note.tags %}
-                        <a href="{{ url_for('notes.remove_tag', note_id=note._id, tag=tag) }}" class="badge badge-primary"><i class="fa fa-minus-square-o" aria-hidden="true"></i> {{ tag }}</a>
+                        <a href="{{ url_for('notes.remove_tag', note_id=note._id, tag=tag) }}" class="badge badge-secondary"><i class="fa fa-minus-square-o" aria-hidden="true"></i> {{ tag }}</a>
                         <!--<span class="badge badge-primary"><i class="fa fa-minus-square-o" aria-hidden="true"></i> {{ tag }}</span>-->
                     {% endfor %}
                 </div>
@@ -50,7 +50,7 @@
             <div>
                 {% for tag in tags %}
 
-                    <a href="{{ url_for('notes.get_tag', tag=tag.name) }}" class="badge badge-primary">{{ tag.name }}  <span class="badge badge-light">{{ tag.counter }}</span></a>
+                    <a href="{{ url_for('notes.get_tag', tag=tag.name) }}" class="badge badge-secondary">{{ tag.name }}  <span class="badge badge-light">{{ tag.counter }}</span></a>
 
                 {% endfor %}
             </div>

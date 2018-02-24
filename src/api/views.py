@@ -74,12 +74,13 @@ def create_task():
 def create_note():
     data = request.get_json()
     title = ""
-    content = data['url'] + '<br>' + data['note']
+    content = data['note']
+    url = '<a href="{}">{}</a>'.format(data['url'], data['url'])
 
     notebook = Notebook.find_by_title('inbox')
     notebook.increment_note()
 
-    new_note = Note(notebook._id, notebook.title, title, content, get_jwt_identity())
+    new_note = Note(notebook._id, notebook.title, title, content, get_jwt_identity(), url)
     new_note.save_to_mongo()
 
     return jsonify({"msg": "note created"}), 201

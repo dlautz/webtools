@@ -47,6 +47,7 @@ class Note(object):
             'title': self.title,
             'content': self.content,
             'author': self.author,
+            'url': self.url,
             'tags': self.tags,
             'last_updated': self.last_updated,
             '_id': self._id

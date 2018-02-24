@@ -77,7 +77,7 @@ def create_note():
     content = data['note']
     url = '<a href="{}">{}</a>'.format(data['url'], data['url'])
 
-    notebook = Notebook.find_by_title('inbox')
+    notebook = Notebook.find_by_title('inbox', get_jwt_identity())
     notebook.increment_note()
 
     new_note = Note(notebook._id, notebook.title, title, content, get_jwt_identity(), url)

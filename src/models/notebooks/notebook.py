@@ -19,8 +19,8 @@ class Notebook(object):
         return cls(**Database.find_one(NotebookConstants.COLLECTION, {'_id': id}))
 
     @classmethod
-    def find_by_title(cls, title):
-        return cls(**Database.find_one(NotebookConstants.COLLECTION, {'title': title}))
+    def find_by_title(cls, title, username):
+        return cls(**Database.find_one(NotebookConstants.COLLECTION, {'$and': [{'title': title}, {'author': username}]}))
 
     def save_to_mongo(self):
         Database.insert(NotebookConstants.COLLECTION, self.json())

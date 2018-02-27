@@ -75,7 +75,7 @@ def create_note():
     data = request.get_json()
     title = ""
     content = data['note']
-    url = '<a href="{}">{}</a>'.format(data['url'], data['url'])
+    url = data['url']
 
     notebook = Notebook.find_by_title('inbox', get_jwt_identity())
     notebook.increment_note()
@@ -84,3 +84,13 @@ def create_note():
     new_note.save_to_mongo()
 
     return jsonify({"msg": "note created"}), 201
+
+
+@api_blueprint.route('/notebooks', methods=['GET'])
+@jwt_required
+def get_notebooks():
+    notebooks = Notebook.find_by_username(get_jwt_identity())
+
+    user_notebooks = [notebook.title for notebook in notebooks]
+
+    return jsonify({"notebooks": user_notebooks}), 200

@@ -71,7 +71,7 @@ def create_task():
 
 @api_blueprint.route('/quick_note', methods=['POST'])
 @jwt_required
-def create_note():
+def quick_note():
     data = request.get_json()
     title = ""
     content = data['note']

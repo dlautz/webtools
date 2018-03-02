@@ -69,7 +69,7 @@ def create_task():
     return jsonify({"msg": "task created"}), 201
 
 
-@api_blueprint.route('/create_note', methods=['POST'])
+@api_blueprint.route('/quick_note', methods=['POST'])
 @jwt_required
 def create_note():
     data = request.get_json()
@@ -81,6 +81,23 @@ def create_note():
     notebook.increment_note()
 
     new_note = Note(notebook._id, notebook.title, title, content, get_jwt_identity(), url)
+    new_note.save_to_mongo()
+
+    return jsonify({"msg": "note created"}), 201
+
+
+@api_blueprint.route('/create_note', methods=['POST'])
+@jwt_required
+def create_note():
+    data = request.get_json()
+    title = data['title']
+    content = data['note']
+    notebook_title = data['notebook']
+
+    notebook = Notebook.find_by_title(notebook_title, get_jwt_identity())
+    notebook.increment_note()
+
+    new_note = Note(notebook._id, notebook.title, title, content, get_jwt_identity())
     new_note.save_to_mongo()
 
     return jsonify({"msg": "note created"}), 201

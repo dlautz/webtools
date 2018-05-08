@@ -97,8 +97,8 @@ def add_tag(note_id):
 
                 note.add_tag(new_tag)
 
-                if Tag.exists(new_tag) is not None:
-                    Tag.find_by_name(new_tag).increment_counter()
+                if Tag.exists(new_tag, session['username']) is not None:
+                    Tag.find_by_name(new_tag, session['username']).increment_counter()
                 else:
                     Tag(new_tag, session['username']).save_to_mongo()
 
@@ -111,7 +111,7 @@ def add_tag(note_id):
 
                 note.add_tag(existing_tag)
 
-                Tag.find_by_name(existing_tag).increment_counter()
+                Tag.find_by_name(existing_tag, session['username']).increment_counter()
 
         return redirect(url_for('.get_notes', notebook_id=note.notebook_id))
 
@@ -126,7 +126,7 @@ def remove_tag(note_id, tag):
     note = Note.find_by_id(note_id)
 
     note.remove_tag(tag)
-    Tag.find_by_name(tag).decrement_counter()
+    Tag.find_by_name(tag, session['username']).decrement_counter()
 
     return redirect(url_for('.get_notes', notebook_id=note.notebook_id))
 
@@ -139,7 +139,7 @@ def delete_note(note_id):
     notebook = Notebook.find_by_id(notebook_id)
 
     for tag in note.tags:
-        Tag.find_by_name(tag).decrement_counter()
+        Tag.find_by_name(tag, session['username']).decrement_counter()
 
     note.delete()
     notebook.decrement_note()
@@ -150,7 +150,7 @@ def delete_note(note_id):
 @note_blueprint.route('/tag/<string:tag>')
 @user_decorators.requires_login
 def get_tag(tag):
-    notes = Note.find_by_tag(tag)
+    notes = Note.find_by_tag(tag, session['username'])
 
     return render_template('notes/by_tag.html', notes=notes, tag_name=tag)
 

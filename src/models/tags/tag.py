@@ -39,15 +39,15 @@ class Tag(object):
         Database.remove(TagConstants.COLLECTION, {'_id': self._id})
 
     @classmethod
-    def find_by_name(cls, name):
-        return cls(**Database.find_one(TagConstants.COLLECTION, {'name': name}))
+    def find_by_name(cls, name, username):
+        return cls(**Database.find_one(TagConstants.COLLECTION, {'name': name, 'username': username}))
 
     @classmethod
     def find_by_username(cls, username):
         return [cls(**elem) for elem in Database.find(TagConstants.COLLECTION, {'username': username})]
 
     @staticmethod
-    def exists(name):
-        return Database.find_one(TagConstants.COLLECTION, {'name': name})
+    def exists(name, username):
+        return Database.find_one(TagConstants.COLLECTION, {'name': name, 'username': username})
 
 

@@ -25,8 +25,8 @@ class Note(object):
         return cls(**Database.find_one(NoteConstants.COLLECTION, {'_id': id}))
 
     @classmethod
-    def find_by_tag(cls, tag):
-        return [cls(**elem) for elem in Database.find(NoteConstants.COLLECTION, {'tags': tag})]
+    def find_by_tag(cls, tag, username):
+        return [cls(**elem) for elem in Database.find(NoteConstants.COLLECTION, {'tags': tag, 'username': username})]
 
     def update(self):
         Database.update(NoteConstants.COLLECTION, {'_id': self._id}, self.json())

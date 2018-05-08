@@ -3,15 +3,15 @@ import os
 
 
 class Database(object):
-    # URI = "mongodb://127.0.0.1:27017"
-    URI = os.environ.get("MONGODB_URI")
+    URI = "mongodb://127.0.0.1:27017"
+    # URI = os.environ.get("MONGODB_URI")
     DATABASE = None
 
     @staticmethod
     def initialize():
         client = pymongo.MongoClient(Database.URI)
-        # Database.DATABASE = client['webtools']
-        Database.DATABASE = client['heroku_2xm1tkl4']
+        Database.DATABASE = client['webtools']
+        # Database.DATABASE = client['heroku_2xm1tkl4']
         # Can also use Database.DATABASE = client.get_default_database()
 
     @staticmethod
